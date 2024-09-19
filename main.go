@@ -19,8 +19,9 @@ func main(){
         os.Exit(1)
     }
 	 
-	//check for valid file
-	file, err := os.Open(args[2])
+	//check for valid file 
+	if len(args) > 2{
+		file, err := os.Open(args[2])
 	if err != nil {
 		fmt.Println("Error opening file")
 		os.Exit(1)
@@ -29,17 +30,21 @@ func main(){
 
 	scanner := bufio.NewScanner(file)
 
-	for scanner.Scan(){
-		line := scanner.Text()
-		countWords(line,&wordCount)
-		charCount += countLineLength(line)
+		for scanner.Scan(){
+			line := scanner.Text()
+			countWords(line,&wordCount)
+			charCount += countLineLength(line)
+		}
 	}
+	
 
 	switch args[1]{
-	case "wc":
+	case "-wc":
 		fmt.Println("Word count in file is:",wordCount)
-	case "cc":
+	case "-cc":
 		fmt.Printf("Their are %v characters on the page.\n",charCount)
+	case "-help":
+		fmt.Println("pending devlopment")
 	default:
 		fmt.Println("use flag -help for info on how to use command")
 	}
