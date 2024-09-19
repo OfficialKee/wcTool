@@ -38,7 +38,7 @@ func main(){
 	switch args[1]{
 	case "wc":
 		fmt.Println("Word count in file is:",wordCount)
-	case "ll":
+	case "cc":
 		fmt.Printf("Their are %v characters on the page.\n",charCount)
 	default:
 		fmt.Println("use flag -help for info on how to use command")
@@ -47,7 +47,6 @@ func main(){
 }
 
 func countLineLength (line string) int {
-	// fmt.Println(reflect.TypeOf(line))
 	return len(line)
 }
 
