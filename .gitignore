@@ -1,0 +1,2 @@
+echo "github" >> .gitignore
+echo "github.pub" >> .gitignore

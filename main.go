@@ -40,7 +40,5 @@ func countLineLength (line string)  {
 func countWordLength(line string, wc *int){
 	stringArr := strings.Split(line," ")
 	 *wc += len(stringArr)
-		// for _,word := range stringArr {
-		// 	fmtPrintln(word)
-		// }
+		
 }
