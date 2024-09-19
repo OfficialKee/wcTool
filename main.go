@@ -10,10 +10,20 @@ import (
 func main(){
 	 wordCount := 0 
 	args := os.Args
-	file, err := os.Open("test.txt")
+	const maxArgs  = 3
+	var charCount int
+
+	//limit amount of args on command line
+	 if len(args) - 1 > maxArgs {
+        fmt.Printf("Error: Too many arguments. Maximum allowed is %d\n", maxArgs)
+        os.Exit(1)
+    }
+	 
+	//check for valid file
+	file, err := os.Open(args[2])
 	if err != nil {
 		fmt.Println("Error opening file")
-		return
+		os.Exit(1)
 	}
 	defer file.Close()
 
@@ -21,23 +31,27 @@ func main(){
 
 	for scanner.Scan(){
 		line := scanner.Text()
-		countLineLength(line)
-		 countWordLength(line,&wordCount)
-		for i, arg := range args {
-			fmt.Printf("Arg %d: %s\n", i, arg)
-		}
-		
+		countWords(line,&wordCount)
+		charCount += countLineLength(line)
 	}
-	fmt.Println("word count",wordCount)
+
+	switch args[1]{
+	case "wc":
+		fmt.Println("Word count in file is:",wordCount)
+	case "ll":
+		fmt.Printf("Their are %v characters on the page.\n",charCount)
+	default:
+		fmt.Println("use flag -help for info on how to use command")
+	}
+	
 }
 
-func countLineLength (line string)  {
+func countLineLength (line string) int {
 	// fmt.Println(reflect.TypeOf(line))
-	fmt.Println(line)
-	fmt.Println("Length of line is:",len(line),"\n")
+	return len(line)
 }
 
-func countWordLength(line string, wc *int){
+func countWords(line string, wc *int){
 	stringArr := strings.Split(line," ")
 	 *wc += len(stringArr)
 		
