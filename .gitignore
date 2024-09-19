@@ -1,2 +1,2 @@
-echo "github" >> .gitignore
-echo "github.pub" >> .gitignore
+github
+github.pub
