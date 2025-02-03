@@ -13,6 +13,8 @@ func main() {
 	args := os.Args
 	const maxArgs = 3
 	var charCount int
+	var bytesCounted int64
+	buffer := make([]byte, 1)
 
 	//limit amount of args on command line
 	if len(args)-1 > maxArgs {
@@ -23,11 +25,22 @@ func main() {
 	//check for valid file
 	if len(args) > 2 {
 		file, err := os.Open(args[2])
+
 		if err != nil {
 			fmt.Println("Error opening file")
 			os.Exit(1)
 		}
 		defer file.Close()
+
+		for {
+			n, err := file.Read(buffer)
+			if n > 0 {
+				bytesCounted += int64(n)
+			}
+			if err != nil {
+				break
+			}
+		}
 
 		scanner := bufio.NewScanner(file)
 
@@ -35,7 +48,9 @@ func main() {
 			line := scanner.Text()
 			countWords(line, &wordCount)
 			countLineLength(line, &charCount)
+			//byteCount(line, &bytesCounted)
 		}
+
 	}
 	// check for valid -flag
 	if len(args) > 1 {
@@ -44,6 +59,8 @@ func main() {
 			fmt.Println("Word count in file is:", wordCount)
 		case "-cc":
 			fmt.Printf("Their are %v characters on the page.\n", charCount)
+		case "-bc":
+			fmt.Printf("Their are %v bytes in the page.\n", bytesCounted)
 		case "-help":
 			fmt.Println("pending devlopment...wouldve added more features but im never using a character counter  but the flag for word count is -wc and the flag for character count is -cc...includes spaces.")
 		default:
