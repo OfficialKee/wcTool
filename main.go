@@ -62,7 +62,7 @@ func main() {
 		case "-bc":
 			fmt.Printf("Their are %v bytes in the page.\n", bytesCounted)
 		case "-help":
-			fmt.Println("pending devlopment...wouldve added more features but im never using a character counter  but the flag for word count is -wc and the flag for character count is -cc...includes spaces.")
+			fmt.Println("pending devlopment...wouldve added more features but im never using a character counter  but the flag for word count is -wc and the flag for character count is -cc and -bc is for byte count...includes spaces.")
 		default:
 			fmt.Println("Invalid flag, use flag -help for manual on how to use command.")
 		}
