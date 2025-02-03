@@ -31,7 +31,7 @@ func main() {
 			os.Exit(1)
 		}
 		defer file.Close()
-
+		//count bytes in file after opening
 		for {
 			n, err := file.Read(buffer)
 			if n > 0 {
